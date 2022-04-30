@@ -1,14 +1,18 @@
-import { InvalidParamError } from '../../errors/invalid-param'
-import { MissingParam } from '../../errors/missing-param'
-import { ServerError } from '../../errors/server-error'
-import { badRequest, serverError } from '../../helpers/http-helper'
-import { IHttpRequest, IHttpResponse } from '../../protocols/http'
-import { IEmailValidator } from '../../protocols/mail-validator'
+import {
+  badRequest,
+  Controller,
+  IEmailValidator,
+  InvalidParamError,
+  IHttpRequest, IHttpResponse,
+  MissingParam,
+  ServerError,
+  serverError
+} from './signup-protocols'
 
-export class SignUpController {
+export class SignUpController implements Controller {
   constructor (
     private readonly mailValidator: IEmailValidator
-  ) {}
+  ) { }
 
   async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
