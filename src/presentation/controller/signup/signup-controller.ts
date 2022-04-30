@@ -1,3 +1,4 @@
+import { MissingParam } from '../../errors/missing-param'
 import { badRequest } from '../../helpers/http-helper'
 
 export class SignUpController {
@@ -6,7 +7,7 @@ export class SignUpController {
 
     for (const field of requiredFields) {
       if (!httpRequest[field]) {
-        return badRequest(new Error(`missing ${field}`))
+        return badRequest(new MissingParam(field))
       }
     }
 
