@@ -13,5 +13,12 @@ export class SignUpController {
         body: new Error('missing password')
       }
     }
+
+    if (!httpRequest.passwordConfirmation) {
+      return {
+        status: 400,
+        body: new Error('missing passwordConfirmation')
+      }
+    }
   }
 }
