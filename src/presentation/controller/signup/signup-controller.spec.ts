@@ -169,8 +169,8 @@ describe('SignUp Controller', () => {
 
   test('Should throw if addAccountUseCase throws', async () => {
     const { sut, addAccountUseCase } = makeSut()
-    jest.spyOn(addAccountUseCase, 'add').mockImplementationOnce(() => {
-      throw new Error()
+    jest.spyOn(addAccountUseCase, 'add').mockImplementationOnce(async () => {
+      return await new Promise((_resolve, reject) => reject(new Error()))
     })
     const httpRequest = {
       body: {
