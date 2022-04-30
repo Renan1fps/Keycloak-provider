@@ -1,7 +1,12 @@
 import { MissingParam } from '../../errors/missing-param'
 import { badRequest } from '../../helpers/http-helper'
+import { IEmailValidator } from '../../protocols/mail-validator'
 
 export class SignUpController {
+  constructor (
+    private readonly mailValidator: IEmailValidator
+  ) {}
+
   async handle (httpRequest: any): Promise<any> {
     const requiredFields = ['email', 'password', 'passwordConfirmation']
 
@@ -17,5 +22,7 @@ export class SignUpController {
         body: new Error('password is fails')
       }
     }
+
+    this.mailValidator.isValid(httpRequest.body.email)
   }
 }
