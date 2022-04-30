@@ -6,12 +6,12 @@ export class SignUpController {
     const requiredFields = ['email', 'password', 'passwordConfirmation']
 
     for (const field of requiredFields) {
-      if (!httpRequest[field]) {
+      if (!httpRequest.body[field]) {
         return badRequest(new MissingParam(field))
       }
     }
 
-    if (httpRequest.passwordConfirmation !== httpRequest.password) {
+    if (httpRequest.body.passwordConfirmation !== httpRequest.body.password) {
       return {
         status: 400,
         body: new Error('password is fails')
