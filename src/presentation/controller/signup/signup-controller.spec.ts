@@ -1,3 +1,4 @@
+import { InvalidParamError } from '../../errors/invalid-param'
 import { MissingParam } from '../../errors/missing-param'
 import { ServerError } from '../../errors/server-error'
 import { IEmailValidator } from '../../protocols/mail-validator'
@@ -80,7 +81,7 @@ describe('SignUp Controller', () => {
     }
     const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
-    expect(response.body).toEqual(new Error('password is fails'))
+    expect(response.body).toEqual(new InvalidParamError('passwordConfirmation'))
   })
 
   test('shloud calls emailValidator with corret values', async () => {
