@@ -1,3 +1,4 @@
+import { InvalidParamError } from '../../errors/invalid-param'
 import { MissingParam } from '../../errors/missing-param'
 import { ServerError } from '../../errors/server-error'
 import { badRequest, serverError } from '../../helpers/http-helper'
@@ -19,10 +20,7 @@ export class SignUpController {
       }
 
       if (httpRequest.body.passwordConfirmation !== httpRequest.body.password) {
-        return {
-          status: 400,
-          body: new Error('password is fails')
-        }
+        return badRequest(new InvalidParamError('passwordConfirmation'))
       }
 
       this.mailValidator.isValid(httpRequest.body.email)
