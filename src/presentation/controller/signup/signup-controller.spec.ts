@@ -12,10 +12,23 @@ const makeSut = (): ISutTypes => {
 }
 
 describe('SignUp Controller', () => {
-  test('shloud return 1 +1 true', async () => {
+  test('Should return 400 if no email is provided', async () => {
     const { sut } = makeSut()
-    const response = await sut.handle()
+    const httpRequest = {
+      password: 'any_password'
+    }
+    const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
     expect(response.body).toEqual(new Error('missing email'))
+  })
+
+  test('shloud return 400 if no password is provided', async () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      email: 'any_email@mail.com'
+    }
+    const response = await sut.handle(httpRequest)
+    expect(response.status).toBe(400)
+    expect(response.body).toEqual(new Error('missing password'))
   })
 })
