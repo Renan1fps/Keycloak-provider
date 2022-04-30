@@ -31,4 +31,15 @@ describe('SignUp Controller', () => {
     expect(response.status).toBe(400)
     expect(response.body).toEqual(new Error('missing password'))
   })
+
+  test('shloud return 400 if no passwordConfirmation is provided', async () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    }
+    const response = await sut.handle(httpRequest)
+    expect(response.status).toBe(400)
+    expect(response.body).toEqual(new Error('missing passwordConfirmation'))
+  })
 })
