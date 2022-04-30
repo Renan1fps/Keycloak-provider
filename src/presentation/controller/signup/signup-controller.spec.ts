@@ -1,3 +1,4 @@
+import { MissingParam } from '../../errors/missing-param'
 import { SignUpController } from './signup-controller'
 
 interface ISutTypes {
@@ -19,7 +20,8 @@ describe('SignUp Controller', () => {
     }
     const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
-    expect(response.body).toEqual(new Error('missing email'))
+    expect(response.body).toEqual(new MissingParam('email'))
+    expect(response.body).toBeInstanceOf(MissingParam)
   })
 
   test('shloud return 400 if no password is provided', async () => {
@@ -29,7 +31,8 @@ describe('SignUp Controller', () => {
     }
     const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
-    expect(response.body).toEqual(new Error('missing password'))
+    expect(response.body).toEqual(new MissingParam('password'))
+    expect(response.body).toBeInstanceOf(MissingParam)
   })
 
   test('shloud return 400 if no passwordConfirmation is provided', async () => {
@@ -40,7 +43,8 @@ describe('SignUp Controller', () => {
     }
     const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
-    expect(response.body).toEqual(new Error('missing passwordConfirmation'))
+    expect(response.body).toEqual(new MissingParam('passwordConfirmation'))
+    expect(response.body).toBeInstanceOf(MissingParam)
   })
 
   test('shloud return 400 if if the passwords are different', async () => {
