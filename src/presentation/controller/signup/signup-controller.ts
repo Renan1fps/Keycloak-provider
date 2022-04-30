@@ -1,23 +1,12 @@
+import { badRequest } from '../../helpers/http-helper'
+
 export class SignUpController {
   async handle (httpRequest: any): Promise<any> {
-    if (!httpRequest.email) {
-      return {
-        status: 400,
-        body: new Error('missing email')
-      }
-    }
+    const requiredFields = ['email', 'password', 'passwordConfirmation']
 
-    if (!httpRequest.password) {
-      return {
-        status: 400,
-        body: new Error('missing password')
-      }
-    }
-
-    if (!httpRequest.passwordConfirmation) {
-      return {
-        status: 400,
-        body: new Error('missing passwordConfirmation')
+    for (const field of requiredFields) {
+      if (!httpRequest[field]) {
+        return badRequest(new Error(`missing ${field}`))
       }
     }
 
