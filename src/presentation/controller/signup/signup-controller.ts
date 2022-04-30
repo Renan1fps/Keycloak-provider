@@ -7,7 +7,8 @@ import {
   IHttpRequest, IHttpResponse,
   MissingParam,
   ServerError,
-  serverError
+  serverError,
+  success
 } from './signup-protocols'
 
 export class SignUpController implements Controller {
@@ -35,7 +36,9 @@ export class SignUpController implements Controller {
         return badRequest(new InvalidParamError('email'))
       }
 
-      await this.addAccountUseCase.add({ email, password })
+      const response = await this.addAccountUseCase.add({ email, password })
+
+      return success(response)
     } catch (err) {
       return serverError(new ServerError())
     }
