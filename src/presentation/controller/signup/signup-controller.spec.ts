@@ -16,7 +16,10 @@ describe('SignUp Controller', () => {
   test('Should return 400 if no email is provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
-      password: 'any_password'
+      body: {
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
     }
     const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
@@ -27,7 +30,10 @@ describe('SignUp Controller', () => {
   test('shloud return 400 if no password is provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
-      email: 'any_email@mail.com'
+      body: {
+        email: 'any_email@mail.com',
+        passwordConfirmation: 'any_password'
+      }
     }
     const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
@@ -38,8 +44,10 @@ describe('SignUp Controller', () => {
   test('shloud return 400 if no passwordConfirmation is provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
-      email: 'any_email@mail.com',
-      password: 'any_password'
+      body: {
+        email: 'any_email@mail.com',
+        password: 'any_password'
+      }
     }
     const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
@@ -50,9 +58,11 @@ describe('SignUp Controller', () => {
   test('shloud return 400 if if the passwords are different', async () => {
     const { sut } = makeSut()
     const httpRequest = {
-      email: 'any_email@mail.com',
-      password: 'any_password',
-      passwordConfirmation: 'different_passowrd'
+      body: {
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'different_passowrd'
+      }
     }
     const response = await sut.handle(httpRequest)
     expect(response.status).toBe(400)
