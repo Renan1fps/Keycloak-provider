@@ -1,0 +1,17 @@
+{
+  "name": "Keycloak-provider",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Renan1fps/Keycloak-provider.git",
+  "author": "MbRenan <renan.nunes@mblabs.com.br>",
+  "license": "MIT",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.1.2",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0"
+  }
+}
