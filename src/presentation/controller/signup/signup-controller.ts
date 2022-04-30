@@ -2,6 +2,7 @@ import { InvalidParamError } from '../../errors/invalid-param'
 import { MissingParam } from '../../errors/missing-param'
 import { ServerError } from '../../errors/server-error'
 import { badRequest, serverError } from '../../helpers/http-helper'
+import { IHttpRequest, IHttpResponse } from '../../protocols/http'
 import { IEmailValidator } from '../../protocols/mail-validator'
 
 export class SignUpController {
@@ -9,7 +10,7 @@ export class SignUpController {
     private readonly mailValidator: IEmailValidator
   ) {}
 
-  async handle (httpRequest: any): Promise<any> {
+  async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
       const requiredFields = ['email', 'password', 'passwordConfirmation']
 
