@@ -1,5 +1,6 @@
 import { MissingParam } from '../../errors/missing-param'
-import { badRequest } from '../../helpers/http-helper'
+import { ServerError } from '../../errors/server-error'
+import { badRequest, serverError } from '../../helpers/http-helper'
 import { IEmailValidator } from '../../protocols/mail-validator'
 
 export class SignUpController {
@@ -8,21 +9,25 @@ export class SignUpController {
   ) {}
 
   async handle (httpRequest: any): Promise<any> {
-    const requiredFields = ['email', 'password', 'passwordConfirmation']
+    try {
+      const requiredFields = ['email', 'password', 'passwordConfirmation']
 
-    for (const field of requiredFields) {
-      if (!httpRequest.body[field]) {
-        return badRequest(new MissingParam(field))
+      for (const field of requiredFields) {
+        if (!httpRequest.body[field]) {
+          return badRequest(new MissingParam(field))
+        }
       }
-    }
 
-    if (httpRequest.body.passwordConfirmation !== httpRequest.body.password) {
-      return {
-        status: 400,
-        body: new Error('password is fails')
+      if (httpRequest.body.passwordConfirmation !== httpRequest.body.password) {
+        return {
+          status: 400,
+          body: new Error('password is fails')
+        }
       }
-    }
 
-    this.mailValidator.isValid(httpRequest.body.email)
+      this.mailValidator.isValid(httpRequest.body.email)
+    } catch (err) {
+      return serverError(new ServerError())
+    }
   }
 }
