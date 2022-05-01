@@ -1,4 +1,4 @@
-import { IAddAccountUseCase } from '../../../domain/usecase/add-account'
+import { IAddAccountUseCase } from '../../../domain/usecase/protocols/add-account'
 import {
   badRequest,
   Controller,
