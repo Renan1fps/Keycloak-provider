@@ -1,5 +1,5 @@
 import { IAccountModel } from '../../../domain/models/account'
-import { IAddAccountModel, IAddAccountUseCase } from '../../../domain/usecase/add-account'
+import { IAddAccountModel, IAddAccountUseCase } from '../../../domain/usecase/protocols/add-account'
 import { SignUpController } from './signup-controller'
 import {
   IEmailValidator,
@@ -9,7 +9,7 @@ import {
 } from './signup-protocols'
 
 const makeAddAccountUseCase = (): IAddAccountUseCase => {
-  class AddAccountUseCaseStup implements IAddAccountUseCase {
+  class AddAccountUseCaseStub implements IAddAccountUseCase {
     async add (account: IAddAccountModel): Promise<IAccountModel> {
       const fakeAccount = {
         idKeycloak: 'valid_id'
@@ -18,7 +18,7 @@ const makeAddAccountUseCase = (): IAddAccountUseCase => {
     }
   }
 
-  return new AddAccountUseCaseStup()
+  return new AddAccountUseCaseStub()
 }
 
 const makeEmailValidator = (): IEmailValidator => {
