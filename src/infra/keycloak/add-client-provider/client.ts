@@ -2,7 +2,7 @@ import { IAddClientProvider } from '../../../data/protocols/add-client-provider'
 import { KcProvider } from '../helper/kc-provider'
 
 export class AddClientProvider implements IAddClientProvider {
-  async add (clientInfos: string): Promise<string> {
+  async add (clientInfos: {}): Promise<string> {
     const keycloakProvider = KcProvider.intance.connect()
 
     const client = await keycloakProvider.clients.create({
