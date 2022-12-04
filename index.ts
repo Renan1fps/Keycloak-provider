@@ -15,6 +15,7 @@ app.use(express.json())
 app.get('/test', async (req, res) => {
   const { folder, keyName, privateKey, publicDNS, projectName } = req.body;
   makeSSHfile({ folder, keyName, projectName, publicDNS }, privateKey, keyName);
+  connectServer(projectName)
   res.send('ok')
 });
 
